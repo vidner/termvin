@@ -19,5 +19,7 @@ COPY nginx.conf /etc/nginx/nginx.conf
 COPY . /app
 RUN v /app/termvin.v
 RUN chmod +x /app/start.sh
+RUN rm -rf /tmp/*
+
 CMD [ "/app/start.sh" ]
 

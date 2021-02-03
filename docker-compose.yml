@@ -2,6 +2,7 @@ version: '3.3'
 
 services:
   termvin:
+    container_name: termvin
     restart: always
     build: .
     ports:
