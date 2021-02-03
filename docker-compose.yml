@@ -1,0 +1,9 @@
+version: '3.3'
+
+services:
+  termvin:
+    restart: always
+    build: .
+    ports:
+      - "8888:80"
+      - "9999:9999"

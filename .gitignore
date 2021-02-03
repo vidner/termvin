@@ -1,0 +1,9 @@
+# Binaries for programs and plugins
+main
+termvin
+*.exe
+*.exe~
+*.so
+*.dylib
+*.dll
+.DS_Store
