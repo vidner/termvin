@@ -1,7 +1,8 @@
 module main
+import io
 import net
-import rand
 import os
+import rand
 
 const (
 	listen_port = 9999
@@ -12,13 +13,14 @@ const (
 )
 
 fn handle_conn(mut socket net.TcpConn) {
-	mut buf := []byte{len: size_limit}
-	nbytes := socket.read(mut buf) or { return }
+	mut buf := io.read_all(reader: io.make_reader(socket)) or { return }
+	mut nbytes := buf.len
+	if buf.len > size_limit { nbytes = size_limit }
 	mut slug := rand.string(slug_len)
 	for {
-		if os.exists('/tmp/$slug') { 
+		if os.exists('/tmp/$slug') {
 			slug = rand.string(slug_len)
-			continue 
+			continue
 		}
 		else {
 			mut file := os.create('/tmp/$slug') or { return }
@@ -38,6 +40,6 @@ fn main() {
 		mut new_conn := server.accept() or { continue }
 		go handle_conn(mut new_conn)
 	}
-	
+
 	server.close() or { }
 }
